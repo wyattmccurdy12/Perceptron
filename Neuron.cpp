@@ -21,7 +21,7 @@ double Neuron::getError(double target, double result)
 	return target - result;
 }
 
-double Neuron::updateWeights(double x1, double x2, double error)
+void Neuron::updateWeights(double x1, double x2, double error)
 {
 	w1 = w1 + nL * error * x1;
 	w2 = w2 + nL * error * x2;

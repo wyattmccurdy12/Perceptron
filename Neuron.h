@@ -8,7 +8,7 @@ using namespace std;
 class Neuron
 {
 public:
-	Neuron();
+
 	//weights
 	double w1 = 0.0;
 	double w2 = 0.0;
@@ -20,23 +20,23 @@ public:
 
 	// input vector
 	// TODO give io for text file instead
-	std::vector<std::vector<int>> inputs{
-		{-1, -1},
-		{-1, -2},
-		{-3, -3},
-		{-2, -1},
-		{-5, -1},
-		{1, 1},
-		{1, 2},
-		{1, 3},
-		{4, 1},
-		{2, 2}
+	std::vector<std::vector<double>> inputs{
+		{-1.0, -1.0},
+		{-1.0, -2.0},
+		{-3.0, -3.0},
+		{-2.0, -1.0},
+		{-5.0, -1.0},
+		{1.0, 1.0},
+		{1.0, 2.0},
+		{1.0, 3.0},
+		{4.0, 1.0},
+		{2.0, 2.0}
 	};
 
 	// target classifications
 	// TODO io instead
-	vector<int> target{
-		0, 0, 0, 0, 0, 1, 1, 1, 1, 1
+	vector<double> target{
+		0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0
 	};
 
 	// forward pass
@@ -46,7 +46,7 @@ public:
 
 	// back pass
 	double getError(double target, double result);
-	double updateWeights(double x1, double x2, double error);
+	void updateWeights(double x1, double x2, double error);
 
 };
 #endif 
