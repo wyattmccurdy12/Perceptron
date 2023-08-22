@@ -6,9 +6,8 @@
 	Created in Visual Studio 2022
 
 	TODO:
-		1. output 2d chart
-		2. more robust
-		3. spit out all information - weights, nodes, biases at end.
+		1. Create adder
+		2. More robust
 */
 
 #include <iostream>
@@ -20,8 +19,9 @@ int main()
 {
 
 	// Empty vectors for the inputs
-	vector<vector<int>> inputs;
+	vector<int> inputs;
 	vector<int> target;
+	vector<double> weights;
 
 	string in_path = "perceptron_inputs_x_y_c.txt";
 	string temp;
@@ -36,30 +36,25 @@ int main()
 
 		int pos = 0;
 		std::string token;
-		vector<int> v{ 0, 0 };
 
 		// # 1
 		pos = temp.find(delimiter);
 		token = temp.substr(0, pos);
 		temp.erase(0, pos + delimiter.length());
-		v[0] = stoi(token);
-
-		// # 2
-		pos = temp.find(delimiter);
-		token = temp.substr(0, pos);
-		temp.erase(0, pos + delimiter.length());
-		v[1] = stoi(token);
-		inputs.push_back(v);
+		inputs.push_back(stoi(token));
 
 		// # 3
 		target.push_back(stoi(temp));
+
+		// temporary thing to fix weights
+		weights.push_back(0.0);
 
 		i++;
 	}
 	fin.close();
 
 
-	Neuron nn(inputs, target);
+	Neuron nn(inputs, target, weights);
 
 	int epochNum = 0;
 
@@ -72,14 +67,14 @@ int main()
 		int inputSize = nn.inputs.size();
 		for (int i = 0; i < inputSize; i++)
 		{
-			double y = nn.getY(nn.inputs[i][0], nn.inputs[i][1]);
+			double y = nn.getY();
 			cout << "y: " << y << "\n";
 			double sig = nn.sigmoidFun(y);
 			double threshOut = nn.thresholdOut(sig);
 			double error = nn.getError(nn.target[i], threshOut);
 			cout << "error: " << error << endl;
 			if (error == 0) goodEstimationNumber++;
-			nn.updateWeights(nn.inputs[i][0], nn.inputs[i][1], error);
+			nn.updateWeights(error); 
 
 			if (goodEstimationNumber == inputSize)
 			{

@@ -1,18 +1,21 @@
 #ifndef NEURON_H
 #define NEURON_H
 #include <vector>
+#include <iostream>
 
 using namespace std;
 
 class Neuron
 {
 public:
-	vector<vector<int>> inputs;
+	vector<int> inputs;
 	vector<int> target;
+	vector<double> weights;
 
-	Neuron(vector<vector<int>> i, vector<int> t) {
-		inputs = i;
-		target = t;
+	Neuron(vector<int> inputs, vector<int> target, vector<double> weights) {
+		this->inputs = inputs;
+		this->target = target;
+		this->weights = weights;
 	}
 
 	//weights
@@ -25,7 +28,7 @@ public:
 	double b = 1;
 
 	// forward pass
-	double getY(double x1, double x2);
+	double getY();
 	double sigmoidFun(double y);
 	double stepFun(double y);
 	double relU(double y);
@@ -34,7 +37,7 @@ public:
 
 	// back pass
 	double getError(double target, double result);
-	void updateWeights(double x1, double x2, double error);
+	void updateWeights(double error);
 
 };
 #endif 
