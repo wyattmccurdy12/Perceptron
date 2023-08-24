@@ -23,14 +23,13 @@ int main()
 	vector<int> target;
 	vector<double> weights;
 
-	string in_path = "perceptron_inputs_x_y_c.txt";
+	string in_path = "perceptron_inputs_x_t.txt";
 	string temp;
 	string delimiter = " ";
 	ifstream fin;
 	fin.open(in_path);
 	std::getline(fin, temp); // take header off
 	// Execute a loop until EOF (End of File)
-	int i = 0;
 	while (fin) {
 		std::getline(fin, temp);
 
@@ -45,11 +44,6 @@ int main()
 
 		// # 3
 		target.push_back(stoi(temp));
-
-		// temporary thing to fix weights
-		weights.push_back(0.0);
-
-		i++;
 	}
 	fin.close();
 
@@ -58,41 +52,50 @@ int main()
 
 	int epochNum = 0;
 
-	while (epochNum < 10)
+	while (epochNum < 30)
 	{
 		cout << "==================" << endl;
 		cout << "epoch: " << epochNum << endl;
 
 		int goodEstimationNumber = 0;
-		int inputSize = nn.inputs.size();
+		int inputSize = nn.inputs.size(); // TODO fix zero input size
+
 		for (int i = 0; i < inputSize; i++)
 		{
-			double y = nn.getY();
+			double y = nn.getY(inputs[i]);
 			cout << "y: " << y << "\n";
 			double sig = nn.sigmoidFun(y);
 			double threshOut = nn.thresholdOut(sig);
 			double error = nn.getError(nn.target[i], threshOut);
 			cout << "error: " << error << endl;
 			if (error == 0) goodEstimationNumber++;
-			nn.updateWeights(error); 
+			nn.updateWeights(inputs[i], error);
+			for (int i = 0; i < weights.size(); i++)
+			{
+				cout << i << ": " << weights[i] << ", ";
+			}
 
 			if (goodEstimationNumber == inputSize)
 			{
 
 				cout << "epoch num: " << epochNum << "\n";
-				cout << "w1: " << nn.w1 << ", " << "w2: " << nn.w2 << ", " << "w3: " << nn.w3 << endl;
 				cout << "ending epochs...";
 				return 0;
 			}
 		}
 		epochNum++;
+		cout << "good estimation number: " << goodEstimationNumber << endl;
 		cout << "==================" << "\n\n";
 	}
 
 
 	cout << "========================" << endl;
 	cout << "Final Weights: " << endl;
-	cout << "w1: " << nn.w1 << ", w2: " << nn.w2 << ", w3: " << nn.w3 << endl;
+	for (int i = 0; i < weights.size(); i++)
+	{
+		cout << i << ": " << weights[i] << ", ";
+	}
+	cout << endl;
 
 }
 

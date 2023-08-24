@@ -19,16 +19,15 @@ public:
 	}
 
 	//weights
-	double w1 = 0.0;
-	double w2 = 0.0;
-	double w3 = 0.0;
+	double w1 = 0.1;
+	double w2 = 0.1;
 
 	// learning rate and bias
 	double nL = 0.2;
-	double b = 1;
+	double b = 0;
 
 	// forward pass
-	double getY();
+	double getY(double x1);
 	double sigmoidFun(double y);
 	double stepFun(double y);
 	double relU(double y);
@@ -37,7 +36,7 @@ public:
 
 	// back pass
 	double getError(double target, double result);
-	void updateWeights(double error);
+	void updateWeights(double x1, double error);
 
 };
 #endif 

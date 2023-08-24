@@ -6,36 +6,21 @@
 /// <param name="x1">Input 1 (x1)</param>
 /// <param name="x2">Input 2 (x2)</param>
 /// <returns>Output from weights/input to activation (y)</returns>
-double Neuron::getY()
+double Neuron::getY(double x1)
 {
-	// Return if bad input vector lengths
-	if (inputs.size() != target.size())
-	{
-		cout << "Input vector and target vector are different lengths.";
-		throw exception("Input vector and target vector are different lengths.");
-	}
-	if (inputs.size() != weights.size())
-	{
-		cout << "Input vector and weights vector are different lengths.";
-		throw exception("Input vector and weights vector are different lengths.");
-	}
-	if (target.size() != weights.size())
-	{
-		cout << "Target vector and weights vector are different lengths.";
-		throw exception("Target vector and weights vector are different lengths.");
-	}
 
 	// Work through list
-	int len = inputs.size();
-	int dp_sum = 0;
-	for (int i = 0; i < len; i++)
-	{
-		int x = inputs[i];
-		int w = weights[i];
-		dp_sum += x * w;
-	}
-	dp_sum += b;
-	return dp_sum;
+	//int len = inputs.size();
+	//int dp_sum = 0;
+	//for (int i = 0; i < len; i++)
+	//{
+	//	int x = inputs[i];
+	//	int w = weights[i];
+	//	dp_sum += x * w;
+	//}
+	//dp_sum += b;
+	//return dp_sum;
+	return w1 * x1 + w2 * b;
 }
 
 /// <summary>
@@ -106,15 +91,10 @@ double Neuron::getError(double target, double result)
 /// <param name="x1">x1 - first input value</param>
 /// <param name="x2">x2 - second input value</param>
 /// <param name="error">prediction error for data point</param>
-void Neuron::updateWeights(double error)
+void Neuron::updateWeights(double x1, double error)
 {
 
-	for (int i = 0; i < weights.size(); i++)
-	{
-		double w = weights[i];
-		double x = inputs[i];
-		weights[i] = w + nL * error * x;
-	}
+	w1 = w1 + nL * error * x1;
 }
 
 
