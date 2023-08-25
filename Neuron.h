@@ -8,14 +8,16 @@ using namespace std;
 class Neuron
 {
 public:
-	vector<int> inputs;
+	vector<vector<int>> inputs;
 	vector<int> target;
 	vector<double> weights;
+	int nDim;
 
-	Neuron(vector<int> inputs, vector<int> target, vector<double> weights) {
+	Neuron(vector<vector<int>> inputs, vector<int> target, vector<double> weights, int nDim) {
 		this->inputs = inputs;
 		this->target = target;
 		this->weights = weights;
+		this->nDim = nDim;
 	}
 
 	//weights
@@ -27,7 +29,7 @@ public:
 	double b = 0;
 
 	// forward pass
-	double getY(double x1);
+	double getY(vector<int> inputs);
 	double sigmoidFun(double y);
 	double stepFun(double y);
 	double relU(double y);
@@ -36,7 +38,8 @@ public:
 
 	// back pass
 	double getError(double target, double result);
-	void updateWeights(double x1, double error);
+	void updateWeights(vector<int> xInputs, double error);
+	
 
 };
 #endif 

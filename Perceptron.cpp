@@ -5,9 +5,7 @@
 	Computer Vision Lab.
 	Created in Visual Studio 2022
 
-	TODO:
-		1. Create adder
-		2. More robust
+	Note: text file must have header for this code to work correctly.
 */
 
 #include <iostream>
@@ -19,36 +17,63 @@ int main()
 {
 
 	// Empty vectors for the inputs
-	vector<int> inputs;
+	vector<vector<int>> inputs;
 	vector<int> target;
-	vector<double> weights;
+	int numInputDimensions = 0;
 
-	string in_path = "perceptron_inputs_x_t.txt";
+	// Take in a text file and ingest inputs and target values
+	// TODO - ingest inputs of variable dimensions
+	string in_path = "perceptron_inputs_x_y_t.txt";
 	string temp;
 	string delimiter = " ";
 	ifstream fin;
 	fin.open(in_path);
-	std::getline(fin, temp); // take header off
+
+	// Take off header and determine number of dimensions
+	std::getline(fin, temp);
+	int pos = 0;
+	while (temp.find(delimiter) != -1)
+	{
+		numInputDimensions++;
+		pos = temp.find(delimiter);
+		temp.erase(0, pos + delimiter.length());
+	}
+	std::cout << "Number of dimensions: " << numInputDimensions << endl;
+
+	// Create weights vector with n dimensions (zeros for initially)
+	std::vector<double> weights(numInputDimensions + 1, 0.0); // last zero weight at the end for a bias weight
+
 	// Execute a loop until EOF (End of File)
 	while (fin) {
 		std::getline(fin, temp);
-
-		int pos = 0;
 		std::string token;
 
-		// # 1
-		pos = temp.find(delimiter);
-		token = temp.substr(0, pos);
-		temp.erase(0, pos + delimiter.length());
-		inputs.push_back(stoi(token));
+		// Go through delimiters to pull out inputs and push as a list to inputs
+		vector<int> inInputsVec;
+		while (temp.find(delimiter) != -1)
+		{
+			pos = temp.find(delimiter);
+			token = temp.substr(0, pos);
+			temp.erase(0, pos + delimiter.length());
+			inInputsVec.push_back(stoi(token));
+		}
+		inputs.push_back(inInputsVec);
+		//// # 1
+		//pos = temp.find(delimiter);
+		//token = temp.substr(0, pos);
+		//temp.erase(0, pos + delimiter.length());
+		//inputs.push_back(stoi(token));
 
 		// # 3
 		target.push_back(stoi(temp));
 	}
 	fin.close();
 
+	// Implement neuron
+	Neuron nn(inputs, target, weights, numInputDimensions);
 
-	Neuron nn(inputs, target, weights);
+	cout << nn.nDim;
+
 
 	int epochNum = 0;
 
@@ -67,13 +92,13 @@ int main()
 			double sig = nn.sigmoidFun(y);
 			double threshOut = nn.thresholdOut(sig);
 			double error = nn.getError(nn.target[i], threshOut);
-			cout << "error: " << error << endl;
+			//cout << "error: " << error << endl;
 			if (error == 0) goodEstimationNumber++;
 			nn.updateWeights(inputs[i], error);
-			for (int i = 0; i < weights.size(); i++)
-			{
-				cout << i << ": " << weights[i] << ", ";
-			}
+			//for (int i = 0; i < weights.size(); i++)
+			//{
+			//	cout << i << ": " << weights[i] << ", ";
+			//}
 
 			if (goodEstimationNumber == inputSize)
 			{
