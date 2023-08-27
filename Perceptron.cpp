@@ -29,6 +29,9 @@ int main()
 	ifstream fin;
 	fin.open(in_path);
 
+	// Put in extra print outputs for clarity
+	cout << "Reading text file" << endl;
+
 	// Take off header and determine number of dimensions
 	std::getline(fin, temp);
 	int pos = 0;
@@ -36,13 +39,22 @@ int main()
 	{
 		numInputDimensions++;
 		pos = temp.find(delimiter);
+		cout << temp.substr(0, pos) << " ";
 		temp.erase(0, pos + delimiter.length());
 	}
+	std::cout << endl;
 	std::cout << "Number of dimensions: " << numInputDimensions << endl;
 
 	// Create weights vector with n dimensions (zeros for initially)
 	std::vector<double> weights(numInputDimensions + 1, 0.0); // last zero weight at the end for a bias weight
-
+	std::cout << "weights: " << endl;
+	for (int i = 0; i < weights.size(); i++)
+	{
+		std::cout << weights[i] << " ";
+	}
+	std::cout << endl;
+	std::cout << endl;
+	std::cout << "Reading in data: " << endl;
 	// Execute a loop until EOF (End of File)
 	while (fin) {
 		std::getline(fin, temp);
@@ -56,6 +68,7 @@ int main()
 			token = temp.substr(0, pos);
 			temp.erase(0, pos + delimiter.length());
 			inInputsVec.push_back(stoi(token));
+			std::cout << token << " ";
 		}
 		inputs.push_back(inInputsVec);
 		//// # 1
@@ -66,14 +79,16 @@ int main()
 
 		// # 3
 		target.push_back(stoi(temp));
+		std::cout << temp;
+		std::cout << endl;
 	}
+	std::cout << endl << "Done reading data \n++++++++++++++++++++++++\n\n";
 	fin.close();
 
 	// Implement neuron
 	Neuron nn(inputs, target, weights, numInputDimensions);
 
-	cout << nn.nDim;
-
+	std::cout << "Neuron created. Dimensions: " << nn.nDim << endl;
 
 	int epochNum = 0;
 
@@ -87,18 +102,24 @@ int main()
 
 		for (int i = 0; i < inputSize; i++)
 		{
-			double y = nn.getY(inputs[i]);
-			cout << "y: " << y << "\n";
+			cout << "getting y...\n";
+			double y = nn.getY(inputs[i]); // FAILURE - why is the last element of xInputs of size zero?
+			cout << "y: " << y << endl;
+			cout << "sigmoid function being called...\n";
 			double sig = nn.sigmoidFun(y);
+			cout << "thresholding on sigmoid output...\n";
 			double threshOut = nn.thresholdOut(sig);
+			cout << "getting error...\n";
 			double error = nn.getError(nn.target[i], threshOut);
-			//cout << "error: " << error << endl;
+			cout << "error: " << error << endl;
 			if (error == 0) goodEstimationNumber++;
 			nn.updateWeights(inputs[i], error);
-			//for (int i = 0; i < weights.size(); i++)
-			//{
-			//	cout << i << ": " << weights[i] << ", ";
-			//}
+			cout << "weights: ";
+			for (int i = 0; i < weights.size(); i++)
+			{
+				cout << i << ": " << weights[i] << ", ";
+			}
+			cout << "\n\n";
 
 			if (goodEstimationNumber == inputSize)
 			{
