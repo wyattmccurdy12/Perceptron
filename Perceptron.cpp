@@ -30,7 +30,7 @@ int main()
 	fin.open(in_path);
 
 	// Put in extra print outputs for clarity
-	cout << "Reading text file" << endl;
+	std::cout << "Reading text file" << endl;
 
 	// Take off header and determine number of dimensions
 	std::getline(fin, temp);
@@ -39,7 +39,7 @@ int main()
 	{
 		numInputDimensions++;
 		pos = temp.find(delimiter);
-		cout << temp.substr(0, pos) << " ";
+		std::cout << temp.substr(0, pos) << " ";
 		temp.erase(0, pos + delimiter.length());
 	}
 	std::cout << endl;
@@ -70,14 +70,10 @@ int main()
 			inInputsVec.push_back(stoi(token));
 			std::cout << token << " ";
 		}
-		inputs.push_back(inInputsVec);
-		//// # 1
-		//pos = temp.find(delimiter);
-		//token = temp.substr(0, pos);
-		//temp.erase(0, pos + delimiter.length());
-		//inputs.push_back(stoi(token));
 
-		// # 3
+		if (inInputsVec.size() > 0) inputs.push_back(inInputsVec); // temporary solution until I can find out what's going on with the empty vector at end of inputs
+
+		// Fill ith element of target vector.
 		target.push_back(stoi(temp));
 		std::cout << temp;
 		std::cout << endl;
@@ -94,54 +90,54 @@ int main()
 
 	while (epochNum < 30)
 	{
-		cout << "==================" << endl;
-		cout << "epoch: " << epochNum << endl;
+		std::cout << "==================" << endl;
+		std::cout << "epoch: " << epochNum << endl;
 
 		int goodEstimationNumber = 0;
-		int inputSize = nn.inputs.size(); // TODO fix zero input size
+		int inputSize = nn.getInputSize(); // TODO fix zero input size
 
 		for (int i = 0; i < inputSize; i++)
 		{
-			cout << "getting y...\n";
+			std::cout << "getting y...\n";
 			double y = nn.getY(inputs[i]); // FAILURE - why is the last element of xInputs of size zero?
-			cout << "y: " << y << endl;
-			cout << "sigmoid function being called...\n";
+			std::cout << "y: " << y << endl;
+			std::cout << "sigmoid function being called...\n";
 			double sig = nn.sigmoidFun(y);
-			cout << "thresholding on sigmoid output...\n";
+			std::cout << "thresholding on sigmoid output...\n";
 			double threshOut = nn.thresholdOut(sig);
-			cout << "getting error...\n";
+			std::cout << "getting error...\n";
 			double error = nn.getError(nn.target[i], threshOut);
-			cout << "error: " << error << endl;
+			std::cout << "error: " << error << endl;
 			if (error == 0) goodEstimationNumber++;
 			nn.updateWeights(inputs[i], error);
-			cout << "weights: ";
+			std::cout << "weights: ";
 			for (int i = 0; i < weights.size(); i++)
 			{
-				cout << i << ": " << weights[i] << ", ";
+				std::cout << i << ": " << weights[i] << ", ";
 			}
-			cout << "\n\n";
+			std::cout << "\n\n";
 
 			if (goodEstimationNumber == inputSize)
 			{
 
-				cout << "epoch num: " << epochNum << "\n";
-				cout << "ending epochs...";
+				std::cout << "epoch num: " << epochNum << "\n";
+				std::cout << "ending epochs...";
 				return 0;
 			}
 		}
 		epochNum++;
-		cout << "good estimation number: " << goodEstimationNumber << endl;
-		cout << "==================" << "\n\n";
+		std::cout << "good estimation number: " << goodEstimationNumber << endl;
+		std::cout << "==================" << "\n\n";
 	}
 
 
-	cout << "========================" << endl;
-	cout << "Final Weights: " << endl;
+	std::cout << "========================" << endl;
+	std::cout << "Final Weights: " << endl;
 	for (int i = 0; i < weights.size(); i++)
 	{
-		cout << i << ": " << weights[i] << ", ";
+		std::cout << i << ": " << weights[i] << ", ";
 	}
-	cout << endl;
+	std::cout << endl;
 
 }
 

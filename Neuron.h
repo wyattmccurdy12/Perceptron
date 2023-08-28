@@ -5,10 +5,20 @@
 
 using namespace std;
 
+// TODO - can some of these variables be private for robustness/security?
+
+/// <summary>
+/// The neuron class may be instantiated with an n-dimensional input vector and a 1-dimensional target vector.
+/// It provides functions to return the dot product of an inputs vector and weights vector in order to 
+/// create a binary prediction of the target class.
+/// </summary>
 class Neuron
 {
-public:
+
+private:
 	vector<vector<int>> inputs;
+public:
+	
 	vector<int> target;
 	vector<double> weights;
 	int nDim;
@@ -39,6 +49,7 @@ public:
 	// back pass
 	double getError(double target, double result);
 	void updateWeights(vector<int> xInputs, double error);
+	int getInputSize();
 	
 
 };

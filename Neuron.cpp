@@ -14,7 +14,7 @@ double Neuron::getY(vector<int> xInputs)
 	int dp_sum = 0;
 	for (int i = 0; i < nDim; i++)
 	{
-		int x = xInputs[i]; //// FAILURE POINT -- figure out why fails here - subscript error... -- on the last iteration we have a size zero vector for xinputs
+		int x = xInputs[i]; 
 		int w = weights[i];
 		dp_sum += x * w;
 	}
@@ -103,4 +103,9 @@ void Neuron::updateWeights(vector<int> xInputs, double error)
 	double w = weights[wLen];
 	weights[wLen] = w + nL * error * b;
 	cout << "weights updated!\n";
+}
+
+int Neuron::getInputSize()
+{
+	return inputs.size();
 }
