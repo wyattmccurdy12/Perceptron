@@ -84,7 +84,7 @@ int main()
 	// Implement neuron
 	Neuron nn(inputs, target, weights, numInputDimensions);
 
-	std::cout << "Neuron created. Dimensions: " << nn.nDim << endl;
+	std::cout << "Neuron created. Dimensions: " << nn.getNumDimensions() << endl;
 
 	int epochNum = 0;
 
@@ -106,7 +106,7 @@ int main()
 			std::cout << "thresholding on sigmoid output...\n";
 			double threshOut = nn.thresholdOut(sig);
 			std::cout << "getting error...\n";
-			double error = nn.getError(nn.target[i], threshOut);
+			double error = nn.getError(target[i], threshOut);
 			std::cout << "error: " << error << endl;
 			if (error == 0) goodEstimationNumber++;
 			nn.updateWeights(inputs[i], error);

@@ -17,12 +17,10 @@ class Neuron
 
 private:
 	vector<vector<int>> inputs;
-public:
-	
 	vector<int> target;
 	vector<double> weights;
 	int nDim;
-
+public:
 	Neuron(vector<vector<int>> inputs, vector<int> target, vector<double> weights, int nDim) {
 		this->inputs = inputs;
 		this->target = target;
@@ -50,6 +48,10 @@ public:
 	double getError(double target, double result);
 	void updateWeights(vector<int> xInputs, double error);
 	int getInputSize();
+	int getTargetSize();
+	int getNumWeights();
+	int getNumDimensions();
+
 	
 
 };

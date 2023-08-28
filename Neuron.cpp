@@ -109,3 +109,18 @@ int Neuron::getInputSize()
 {
 	return inputs.size();
 }
+
+int Neuron::getTargetSize()
+{
+	return target.size();
+}
+
+int Neuron::getNumWeights()
+{
+	return weights.size();
+}
+
+int Neuron::getNumDimensions()
+{
+	return nDim;
+}
