@@ -81,6 +81,8 @@ int main()
 	std::cout << endl << "Done reading data \n++++++++++++++++++++++++\n\n";
 	fin.close();
 
+
+
 	// Implement neuron
 	Neuron nn(inputs, target, weights, numInputDimensions);
 
