@@ -20,12 +20,23 @@ private:
 	vector<int> target;
 	vector<double> weights;
 	int nDim;
+	double bias;
 public:
-	Neuron(vector<vector<int>> inputs, vector<int> target, vector<double> weights, int nDim) {
+	Neuron(vector<vector<int>> inputs, vector<int> target, vector<double> weights, int nDim, double bias) {
 		this->inputs = inputs;
 		this->target = target;
 		this->weights = weights;
 		this->nDim = nDim;
+		this->bias = bias;
+	}
+
+	// Overload for functionality as adder
+	Neuron(vector<vector<int>> inputs, vector<double> weights, double bias)
+	{
+		this->inputs = inputs;
+		this->nDim = 2;
+		this->weights = weights;
+		this->bias = bias;
 	}
 
 	//weights
@@ -34,7 +45,6 @@ public:
 
 	// learning rate and bias
 	double nL = 0.2;
-	double b = 0;
 
 	// forward pass
 	double getY(vector<int> inputs);

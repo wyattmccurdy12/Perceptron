@@ -12,6 +12,7 @@
 #include <fstream>
 #include <string>
 #include "Neuron.h"
+#include "Adder.h"
 
 int main()
 {
@@ -84,7 +85,7 @@ int main()
 
 
 	// Implement neuron
-	Neuron nn(inputs, target, weights, numInputDimensions);
+	Neuron nn(inputs, target, weights, numInputDimensions, 0);
 
 	std::cout << "Neuron created. Dimensions: " << nn.getNumDimensions() << endl;
 
