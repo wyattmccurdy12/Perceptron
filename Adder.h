@@ -26,7 +26,7 @@ public:
 	}
 
 	// Addition method
-	int add(vector<vector<int>> inputs, vector<double> weights, double bias);
+	void add(int x1, int x2);
 
 };
 

@@ -8,9 +8,6 @@
 /// <returns>Output from weights/input to activation (y)</returns>
 double Neuron::getY(vector<int> xInputs)
 {
-
-	//Work through list
-	//int len = inputs.size();
 	int dp_sum = 0;
 	for (int i = 0; i < nDim; i++)
 	{
@@ -18,9 +15,20 @@ double Neuron::getY(vector<int> xInputs)
 		int w = weights[i];
 		dp_sum += x * w;
 	}
-	dp_sum += b * weights[nDim];
+	dp_sum += bias * weights[nDim];
 	return dp_sum;
-	//return w1 * x1 + w2 * b;
+}
+
+/// <summary>
+/// 
+/// </summary>
+/// <returns></returns>
+double Neuron::getY()
+{
+	// Return x1 * w1 + x2 * w2 + b
+	int x1 = inputs[0][0];
+	int x2 = inputs[0][1];
+	return x1 * w1 + x2 * w2 + bias;
 }
 
 /// <summary>
@@ -101,7 +109,7 @@ void Neuron::updateWeights(vector<int> xInputs, double error)
 		weights[i] = weights[i] + nL * error * xInputs[i];
 	}
 	double w = weights[wLen];
-	weights[wLen] = w + nL * error * b;
+	weights[wLen] = w + nL * error * bias;
 	cout << "weights updated!\n";
 }
 

@@ -5,8 +5,6 @@
 
 using namespace std;
 
-// TODO - can some of these variables be private for robustness/security?
-
 /// <summary>
 /// The neuron class may be instantiated with an n-dimensional input vector and a 1-dimensional target vector.
 /// It provides functions to return the dot product of an inputs vector and weights vector in order to 
@@ -30,13 +28,15 @@ public:
 		this->bias = bias;
 	}
 
-	// Overload for functionality as adder
-	Neuron(vector<vector<int>> inputs, vector<double> weights, double bias)
+	// Overload for functionality as adder (NAND adder example from deep learning ebook)
+	Neuron(int x1, int x2)
 	{
-		this->inputs = inputs;
+		// This is a very simple "NAND" neuron for demonstration purposes.
 		this->nDim = 2;
-		this->weights = weights;
-		this->bias = bias;
+		this->weights = { -2, -2 };
+		this->bias = 3;
+		// Since the input vector is multidimensional, it is necessary to just set and take the 0th element in this case
+		this->inputs[0] = { x1, x2 };
 	}
 
 	//weights
@@ -48,6 +48,7 @@ public:
 
 	// forward pass
 	double getY(vector<int> inputs);
+	double getY();
 	double sigmoidFun(double y);
 	double stepFun(double y);
 	double relU(double y);
