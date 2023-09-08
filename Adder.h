@@ -3,6 +3,8 @@
 #include <vector>
 #include <iostream>
 
+using namespace std;
+
 /// <summary>
 /// The goal of this class is to create a simple adder 
 /// made out of perceptrons (set up as NAND gates) put together to behave like 
@@ -11,22 +13,23 @@
 /// </summary>
 class Adder
 {
+
 private:
 	vector<vector<int>> inputs;
 	vector<double> weights;
 	double bias = 3;
+
 public: 
 	
 	// Construct adder
-	Adder(vector<vector<int>> inputs)
+	Adder()
 	{
-		this->inputs = inputs;
 		this->weights.push_back(-2);
 		this->weights.push_back(-2);
 	}
 
 	// Addition method
-	void add(int x1, int x2);
+	int add(int x1, int x2);
 
 };
 
