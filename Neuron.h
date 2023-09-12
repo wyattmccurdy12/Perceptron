@@ -36,7 +36,7 @@ public:
 		this->weights = { -2, -2 };
 		this->bias = 3;
 		// Since the input vector is multidimensional, it is necessary to just set and take the 0th element in this case
-		this->inputs[0] = { x1, x2 };
+		this->inputs.push_back({ x1, x2 });
 	}
 
 	//weights

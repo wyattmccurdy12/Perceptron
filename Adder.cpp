@@ -35,6 +35,6 @@ int Adder::add(int x1, int x2)
 	//
 	int adderOutput = n5.getY();
 	
-	std::cout << "The adder outputs " << adderOutput << ",\nwith a carry bit of " << carryBit << endl << endl;
+	//std::cout << "The adder outputs " << adderOutput << ",\nwith a carry bit of " << carryBit << endl << endl;
 	return adderOutput + carryBit * 2;
 }
