@@ -146,11 +146,10 @@ int main()
 	////////////////////////////////////////////
 	std::cout << "TESTING ADDER" << endl;
 	Adder a1;
-	int aa = a1.add(1,0);
-	std::cout << "Result of adding 1 and 0: " << aa << endl;
+	//int aa = a1.add(1,0);
+	std::cout << "Result of adding 1 and 0: " << a1.add(1,0) << endl;
 	std::cout << "Result of adding 1 and 1: " << a1.add(1,1) << endl;
 	std::cout << "Result of adding 0 and 1: " << a1.add(0, 1) << endl;
-	std::cout << "Result of adding 0 and 0: " << a1.add(0, 0) << endl;
-
+	//std::cout << "Result of adding 0 and 0: " << a1.add(0, 0) << endl;
 }
 

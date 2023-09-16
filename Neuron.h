@@ -39,7 +39,7 @@ public:
 		this->inputs.push_back({ x1, x2 });
 	}
 
-	//weights
+	//weights /// TODO
 	double w1 = 0.1;
 	double w2 = 0.1;
 
