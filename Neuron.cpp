@@ -29,7 +29,7 @@ double Neuron::getY()
 	int x1 = inputs[0][0];
 	int x2 = inputs[0][1];
 
-	int outSign = x1 * weights[0] + weights[1] * w2 + bias;
+	int outSign = x1 * weights[0] + x2 * weights[1] + bias;
 	return (outSign > 0) ? 1 : 0;
 
 	//return x1 * w1 + x2 * w2 + bias;
