@@ -20,9 +20,9 @@ double Neuron::getY(vector<int> xInputs)
 }
 
 /// <summary>
-/// 
+/// Get neuron's output value (to input to an activation function).
 /// </summary>
-/// <returns></returns>
+/// <returns>Output value for input to activation function.</returns>
 double Neuron::getY()
 {
 	// Return x1 * w1 + x2 * w2 + b
@@ -98,11 +98,10 @@ double Neuron::getError(double target, double result)
 }
 
 /// <summary>
-/// Update layer (neuron) weights for output.
+/// Update neuron weights for output.
 /// </summary>
-/// <param name="x1">x1 - first input value</param>
-/// <param name="x2">x2 - second input value</param>
-/// <param name="error">prediction error for data point</param>
+/// <param name="xInputs">Input vector</param>
+/// <param name="error">Prediction error for data point.</param>
 void Neuron::updateWeights(vector<int> xInputs, double error)
 {
 	cout << "updating weights..." << endl;
@@ -117,21 +116,37 @@ void Neuron::updateWeights(vector<int> xInputs, double error)
 	cout << "weights updated!\n";
 }
 
+/// <summary>
+/// Return size of inputs vector (number of inputs).
+/// </summary>
+/// <returns>Size of inputs vector.</returns>
 int Neuron::getInputSize()
 {
 	return inputs.size();
 }
 
+/// <summary>
+/// Get size of targets vector (number of target values).
+/// </summary>
+/// <returns>Size of targets vector.</returns>
 int Neuron::getTargetSize()
 {
 	return target.size();
 }
 
+/// <summary>
+/// Get number of weights.
+/// </summary>
+/// <returns>Number of weights.</returns>
 int Neuron::getNumWeights()
 {
 	return weights.size();
 }
 
+/// <summary>
+/// Get number of input dimensions.
+/// </summary>
+/// <returns>Number of input dimensions.</returns>
 int Neuron::getNumDimensions()
 {
 	return nDim;

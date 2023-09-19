@@ -19,7 +19,9 @@ private:
 	vector<double> weights;
 	int nDim;
 	double bias;
+
 public:
+	// Constructor with more general functionality
 	Neuron(vector<vector<int>> inputs, vector<int> target, vector<double> weights, int nDim, double bias) {
 		this->inputs = inputs;
 		this->target = target;
@@ -40,8 +42,8 @@ public:
 	}
 
 	//weights /// TODO
-	double w1 = 0.1;
-	double w2 = 0.1;
+	//double w1 = 0.1;
+	//double w2 = 0.1;
 
 	// learning rate and bias
 	double nL = 0.2;

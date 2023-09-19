@@ -16,17 +16,13 @@ class Adder
 
 private:
 	vector<vector<int>> inputs;
-	vector<double> weights;
+	vector<double> weights = { -2, -2 };
 	double bias = 3;
 
 public: 
 	
 	// Construct adder
-	Adder()
-	{
-		this->weights.push_back(-2);
-		this->weights.push_back(-2);
-	}
+	Adder() {}
 
 	// Addition method
 	int add(int x1, int x2);
